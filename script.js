@@ -91,7 +91,6 @@ const createUserName = (accounts) => {
   accounts.forEach(acc => acc.username = acc.owner.toLowerCase().split(' ').map(item => item[0]).join(''))
 }
 createUserName(accounts)
-console.log(accounts)
 
 // const movUSD = movements.map(item => item * eurToUsd)
 
@@ -101,3 +100,7 @@ console.log(accounts)
 // const movDesc = movements.map((mov, i) => `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`)
 
 // console.log(movDesc)
+
+const deposits = movements.filter(mov => mov > 0)
+const withdrawals = movements.filter(mov => mov < 0)
+console.log(withdrawals)
