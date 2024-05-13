@@ -78,7 +78,7 @@ const displayMovements = (movements) => {
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${type}</div>
           
-          <div class="movements__value">${movement}</div>
+          <div class="movements__value">${movement} €</div>
         </div>`
 
         containerMovements.insertAdjacentHTML('afterbegin', markup)
@@ -90,8 +90,26 @@ const displayBalance = (movements) => {
   labelBalance.textContent = `${balance} €`
 }
 
+const displayDeposites = (movements) => {
+  const income = movements.filter(mov => mov > 0).reduce((acc, mov) => acc + mov, 0)
+  labelSumIn.textContent = `${income} €`
+}
+
+const displayWithdrawals = (movements) => {
+  const out = movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0)
+  labelSumOut.textContent = `${Math.abs(out)} €`
+}
+
+const displayInterest = (movements) => {
+  const interest = movements.filter(mov => mov > 0).map(deposit => deposit * 1.2/100).filter(int => int > 1).reduce((acc, mov) => acc + mov, 0)
+  labelSumInterest.textContent = `${interest} €`
+}
+
 displayBalance(movements)
 displayMovements(account1.movements)
+displayDeposites(account1.movements)
+displayWithdrawals(account1.movements)
+displayInterest(account1.movements)
 
 const createUserName = (accounts) => {
   accounts.forEach(acc => acc.username = acc.owner.toLowerCase().split(' ').map(item => item[0]).join(''))
@@ -109,9 +127,13 @@ createUserName(accounts)
 
 // const balance = movements.reduce(((accum, curr, index, arr) => accum + curr), 0) // 2nd param is a starting value of accumulator (accum)
 
-const max = movements.reduce((acc, curr) => {
-  if (acc > curr) return acc
-  else return curr
-} )
+// const max = movements.reduce((acc, curr) => {
+//   if (acc > curr) return acc
+//   else return curr
+// } )
 
-console.log(max)
+// console.log(max)
+
+const total = Math.round(movements.filter(mov => mov > 0).map(mov => mov * eurToUsd).reduce((acc, curr) => acc + curr, 0))
+
+console.log(total)
