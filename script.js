@@ -85,6 +85,12 @@ const displayMovements = (movements) => {
     })
 }
 
+const displayBalance = (movements) => {
+  const balance = movements.reduce(((accum, mov) => accum + mov), 0) 
+  labelBalance.textContent = `${balance} €`
+}
+
+displayBalance(movements)
 displayMovements(account1.movements)
 
 const createUserName = (accounts) => {
@@ -92,15 +98,20 @@ const createUserName = (accounts) => {
 }
 createUserName(accounts)
 
-// const movUSD = movements.map(item => item * eurToUsd)
 
-// console.log(movements)
-// console.log(movUSD)
+// const movUSD = movements.map(item => item * eurToUsd)
 
 // const movDesc = movements.map((mov, i) => `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`)
 
-// console.log(movDesc)
 
-const deposits = movements.filter(mov => mov > 0)
-const withdrawals = movements.filter(mov => mov < 0)
-console.log(withdrawals)
+// const deposits = movements.filter(mov => mov > 0)
+// const withdrawals = movements.filter(mov => mov < 0)
+
+// const balance = movements.reduce(((accum, curr, index, arr) => accum + curr), 0) // 2nd param is a starting value of accumulator (accum)
+
+const max = movements.reduce((acc, curr) => {
+  if (acc > curr) return acc
+  else return curr
+} )
+
+console.log(max)
