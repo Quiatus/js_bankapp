@@ -134,6 +134,10 @@ createUserName(accounts)
 
 // console.log(max)
 
-const total = Math.round(movements.filter(mov => mov > 0).map(mov => mov * eurToUsd).reduce((acc, curr) => acc + curr, 0))
+// const total = Math.round(movements.filter(mov => mov > 0).map(mov => mov * eurToUsd).reduce((acc, curr) => acc + curr, 0))
 
-console.log(total)
+// console.log(total)
+
+const search = movements.find(mov => mov < 0)
+
+console.log(search)
