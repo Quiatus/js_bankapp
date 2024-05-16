@@ -177,15 +177,16 @@
   }
   
   .summary__label {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 500;
     text-transform: uppercase;
-    margin-right: 0.8rem;
+    margin-right: 1rem;
   }
   
   .summary__value {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     margin-right: 2.5rem;
+    font-weight: 700;
   }
   
   .summary__value--in,
