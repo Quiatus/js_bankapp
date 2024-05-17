@@ -63,7 +63,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.1
 
 //movements.forEach((move, i) => move > 0 ? console.log(`${i+1}. DEP: ${move}`) : console.log(`${i+1}. WIT: ${Math.abs(move)}`))
@@ -147,6 +147,20 @@ btnTransfer.addEventListener('click', (e) => {
 })
 
 
+btnLoan.addEventListener('click', e => {
+  e.preventDefault()
+
+  const amount = Number(inputLoanAmount.value)
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    currentAccount.movements.push(amount)
+    updateUI(currentAccount)
+    inputLoanAmount.value = ''
+    inputLoanAmount.blur()
+  }
+})
+
+
 btnClose.addEventListener('click', (e) => {
   e.preventDefault()
 
@@ -187,3 +201,9 @@ btnClose.addEventListener('click', (e) => {
 // const search = movements.find(mov => mov < 0)
 
 // console.log(search)
+
+// const anyDeposits = movements.some(mov => mov > 0) // checks if any value meets the condition and returns boolean
+
+// console.log(anyDeposits)
+
+// console.log(movements.every(mov => mov > 0)) // checks if every value meets the condition and returns boolean
