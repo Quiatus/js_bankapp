@@ -240,3 +240,22 @@ btnSort.addEventListener('click', e => {
 // movements.sort((a, b) => a - b)
 
 // console.log(movements)
+
+// const x = new Array(7)
+// x.fill(1, 3, 5) // item, start, end
+// console.log(x)
+
+// const y = Array.from({length: 7}, () => 1)
+// console.log(y)
+
+// const z = Array.from({length: 7}, (_, i) => i + 1)
+// console.log(z)
+
+// const dice = Array.from({length: 100}, () => Math.round(Math.random() * (6 - 1) + 1))
+// console.log(dice)
+
+// labelBalance.addEventListener('click', () => {
+//   const moveUI = Array.from(document.querySelectorAll('.movements__value'), el => el.textContent.replace('€', '')) // converts node list into array, then map the repplace function
+
+//   console.log(moveUI)
+// })
