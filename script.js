@@ -68,10 +68,12 @@ const eurToUsd = 1.1
 
 //movements.forEach((move, i) => move > 0 ? console.log(`${i+1}. DEP: ${move}`) : console.log(`${i+1}. WIT: ${Math.abs(move)}`))
 
-const displayMovements = (account) => {
+const displayMovements = (account, sort = false) => {
     containerMovements.innerHTML = ''
-    account.movements.forEach((movement) => {
-        
+
+    const movs = sort ? account.movements.slice().sort((a, b) => a - b) : movements
+
+    movs.forEach((movement) => {
         const type = movement > 0 ? 'deposit' : 'withdrawal'
 
         const markup = `
@@ -175,6 +177,14 @@ btnClose.addEventListener('click', (e) => {
   }
 })
 
+let sorted = false
+
+btnSort.addEventListener('click', e => {
+  e.preventDefault()
+  displayMovements(currentAccount, !sorted)
+  sorted = !sorted
+})
+
 // Training:
 
 // const movUSD = movements.map(item => item * eurToUsd)
@@ -207,3 +217,26 @@ btnClose.addEventListener('click', (e) => {
 // console.log(anyDeposits)
 
 // console.log(movements.every(mov => mov > 0)) // checks if every value meets the condition and returns boolean
+
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8]
+
+// console.log(arr.flat()) // creates a one dimensional array
+
+// const arrDeep = [1, 2, 3, [4, 5, [6, 7, [8, 9 ]]]]
+
+// console.log(arrDeep.flat(3))
+
+// const overBalance = accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc + mov, 0)
+// console.log(overBalance)
+
+// const bankBal = accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0) // combines map and flat as it is a common operation. goes only 1 levle deep
+// console.log(bankBal)
+
+// movements.sort((curr, next) => {
+//   if (curr > next) return 1 // keep order
+//   if (next > curr) return -1 // switch order
+// })
+
+// movements.sort((a, b) => a - b)
+
+// console.log(movements)
