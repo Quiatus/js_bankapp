@@ -76,7 +76,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.1
-
+const now = new Date()
 //movements.forEach((move, i) => move > 0 ? console.log(`${i+1}. DEP: ${move}`) : console.log(`${i+1}. WIT: ${Math.abs(move)}`))
 
 const displayMovements = (account, sort = false) => {
@@ -84,13 +84,16 @@ const displayMovements = (account, sort = false) => {
 
     const movs = sort ? account.movements.slice().sort((a, b) => a - b) : movements
 
-    movs.forEach((movement) => {
+    movs.forEach((movement, i) => {
         const type = movement > 0 ? 'deposit' : 'withdrawal'
+
+        const date = new Date(account.movementsDates[i])
+        const displayDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}` 
 
         const markup = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${type}</div>
-          
+          <div class="movements__date">${displayDate}</div>
           <div class="movements__value">${movement.toFixed(2)} €</div>
         </div>`
 
@@ -99,8 +102,10 @@ const displayMovements = (account, sort = false) => {
 }
 
 const displayBalance = (account) => {
+  
   account.balance = account.movements.reduce(((accum, mov) => accum + mov), 0) 
   labelBalance.textContent = `${account.balance.toFixed(2)} €`
+  labelDate.textContent = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}, ${now.getHours()}:${now.getMinutes()}` 
 }
 
 const displaySummary = (account) => {
@@ -152,6 +157,7 @@ btnTransfer.addEventListener('click', (e) => {
   if (amount > 0 && recieverAcc && currentAccount.balance >= amount && recieverAcc.username !== currentAccount.username) {
     currentAccount.movements.push(-amount)
     recieverAcc.movements.push(amount)
+    recieverAcc.movementsDates.push(new Date())
     updateUI(currentAccount)
   }
 
@@ -167,6 +173,7 @@ btnLoan.addEventListener('click', e => {
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     currentAccount.movements.push(amount)
+    currentAccount.movementsDates.push(new Date())
     updateUI(currentAccount)
     inputLoanAmount.value = ''
     inputLoanAmount.blur()
@@ -279,3 +286,6 @@ btnSort.addEventListener('click', e => {
 // console.log(randomInt(10, 20))
 
 // console.log((2.7167).toFixed(2)) // removes decimals
+
+// const dt = new Date()
+// console.log(dt.getFullYear())
